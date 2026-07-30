@@ -25,7 +25,7 @@ Files related only to manuscript editing, local rendering, or draft generation a
 The dataset will be released at:
 
 ```text
-XXXXXXXX
+PMF-Net/data/
 ```
 
 After downloading, organize the data as follows:
