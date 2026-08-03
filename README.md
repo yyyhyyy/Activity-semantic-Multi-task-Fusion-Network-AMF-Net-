@@ -1,6 +1,6 @@
-﻿# PMF-Net: Cognitive-Constructive Group Activity Recognition
+﻿# AMF-Net: Cognitive-Constructive Group Activity Recognition
 
-This repository contains the code for **PMF-Net (Pedagogical Multi-task Fusion Network)**, a video understanding framework for recognizing classroom discussion-based teaching activities. The task is formulated as cognitive-constructive group activity recognition: the model predicts the main discussion activity type while using auxiliary classroom semantic labels as pedagogical evidence.
+This repository contains the code for **AMF-Net (Activity-semantic Multi-task Fusion Network)**, a video understanding framework for recognizing classroom discussion-based teaching activities. The task is formulated as cognitive-constructive group activity recognition: the model predicts the main discussion activity type while using auxiliary classroom semantic labels as pedagogical evidence.
 
 ## Repository Contents
 
