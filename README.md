@@ -1,6 +1,6 @@
-﻿# AMF-Net: Cognitive-Constructive Group Activity Recognition
+# AMF-Net: Activity-Semantic Multi-task Fusion Network
 
-This repository contains the code for **AMF-Net (Activity-semantic Multi-task Fusion Network)**, a video understanding framework for recognizing classroom discussion-based teaching activities. The task is formulated as cognitive-constructive group activity recognition: the model predicts the main discussion activity type while using auxiliary classroom semantic labels as pedagogical evidence.
+This repository contains the code for **AMF-Net (Activity-Semantic Multi-task Fusion Network)**, a video understanding framework for cognitive-constructive group activity recognition. AMF-Net is designed to recognize group activities whose categories depend not only on visible actions and spatial relations, but also on activity semantics, participant roles, interaction context, and temporal evidence. In this release, we use discussion-based teaching activities as a representative dataset and case study.
 
 ## Repository Contents
 
@@ -8,11 +8,11 @@ The files required for code release and reproducibility are:
 
 - `config.py`: label definitions, task metadata, and label aliases.
 - `cvat_parser.py`: CVAT annotation parser.
-- `multi_video_dataset.py`: multi-video clip dataset for classroom videos.
+- `multi_video_dataset.py`: multi-video clip dataset for the released example videos.
 - `video_dataset.py`, `dataset.py`: dataset utilities kept for compatibility.
-- `experimental_video_models.py`: PMF-Net and backbone construction.
+- `experimental_video_models.py`: AMF-Net model and backbone construction.
 - `semantic_fusion_modules.py`: semantic fusion components.
-- `backbone_adapters.py`, `video_models.py`, `classroom_swin3d.py`, `models.py`: video backbone and model utilities.
+- `backbone_adapters.py`, `video_models.py`, `classroom_swin3d.py`, `models.py`: video backbone and model utilities. The filename `classroom_swin3d.py` is kept for compatibility with earlier experiments.
 - `device_utils.py`: CPU/CUDA/NPU device helper functions.
 - `train_ablation.py`: main training and evaluation script used for paper experiments.
 - `paper_experiments/`: shell scripts for paper-level experiments.
@@ -22,10 +22,12 @@ Files related only to manuscript editing, local rendering, or draft generation a
 
 ## Dataset
 
+The released dataset is an example of cognitive-constructive group activities, instantiated by discussion-based teaching activity videos. It should be viewed as a task-specific benchmark for AMF-Net rather than as a restriction of the method to teaching or classroom scenarios.
+
 The dataset will be released at:
 
 ```text
-PMF-Net/data/
+https://doi.org/10.57760/sciencedb.45716
 ```
 
 After downloading, organize the data as follows:
@@ -49,30 +51,30 @@ Each video folder should contain one CVAT annotation file and the corresponding 
 
 ## Label Tasks
 
-The main task is `discuss_type`, with five discussion-based teaching activity classes:
+The main task in the released example dataset is `discuss_type`, with five discussion-based activity classes:
 
-- `question_discuss`: question-driven discussion-based teaching activity
-- `guide_discuss`: guided discussion-based teaching activity
-- `debate_discuss`: debate-based discussion-based teaching activity
-- `socratic_discuss`: Socratic discussion-based teaching activity
-- `data_discuss`: data-driven discussion-based teaching activity
+- `question_discuss`: question-driven discussion-based activity
+- `guide_discuss`: guided discussion-based activity
+- `debate_discuss`: debate-based discussion-based activity
+- `socratic_discuss`: Socratic discussion-based activity
+- `data_discuss`: data-driven discussion-based activity
 
 Auxiliary tasks include:
 
-- `scene_desk`: classroom desk layout
-- `scene_method`: teaching mode
-- `scene_inte`: teacher interaction object
-- `teacher_act`: teacher action
-- `location`: teacher location
-- `stu_act`: student action
-- `view`: student gaze/view direction
+- `scene_desk`: scene/layout structure
+- `scene_method`: activity mode
+- `scene_inte`: interaction target
+- `teacher_act`: leader/instructor action
+- `location`: leader/instructor location
+- `stu_act`: participant action
+- `view`: participant gaze/view direction
 
 ## Environment Setup
 
 Create a Python environment and install dependencies:
 
 ```bash
-cd /path/to/PMF-Net
+cd /path/to/AMF-Net
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -97,7 +99,7 @@ If parsing fails, check that each video directory contains `annotations.xml` and
 
 ## Main Paper Experiment
 
-Run PMF-Net with the final R(2+1)D-18 backbone:
+Run AMF-Net with the final R(2+1)D-18 backbone:
 
 ```bash
 python train_ablation.py \
@@ -121,7 +123,7 @@ The `paper_experiments/` directory contains reproducible scripts for the main ex
 
 ### Backbone Sweep
 
-This experiment compares PMF-Net with different video backbones:
+This experiment compares AMF-Net with different video backbones:
 
 ```bash
 ROOT=/path/to/outputs/paper_experiments/backbone_sweep \
@@ -129,9 +131,9 @@ DATA_ROOT=/path/to/data_root \
 bash paper_experiments/06_backbone_sweep_with_ours.sh
 ```
 
-### Plain Backbone vs. PMF-Net
+### Plain Backbone vs. AMF-Net
 
-This experiment compares plain video backbones with the full PMF-Net framework:
+This experiment compares plain video backbones with the full AMF-Net framework:
 
 ```bash
 ROOT=/path/to/outputs/paper_experiments/plain_baseline_vs_full \
@@ -182,7 +184,7 @@ Experiment outputs are written under the directory specified by `ROOT` or under 
 The main metrics are:
 
 - **Accuracy**: the proportion of correctly classified validation clips.
-- **Macro-F1**: the unweighted mean of per-class F1 scores. This is important for imbalanced classroom activity categories.
+- **Macro-F1**: the unweighted mean of per-class F1 scores. This is important for imbalanced activity categories.
 
 The paper reports both temporal split and purged temporal split results. The purged temporal split is used as a robustness diagnostic rather than as a replacement for the main temporal split.
 
@@ -197,3 +199,7 @@ The paper reports both temporal split and purged temporal split results. The pur
 ## Citation
 
 The citation entry will be added after publication.
+
+
+
+
